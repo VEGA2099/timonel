@@ -1,0 +1,9 @@
+# Your own data / Tus datos
+config.json
+config.json.bak
+mcp_token.txt
+rutas_encontradas.json
+custom.css
+custom.js
+*.log
+__pycache__/

@@ -1,0 +1,689 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/VEGA2099/timonel/blob/main/config.schema.json",
+  "title": "Timonel - config.json (claves en español)",
+  "description": "Cada campo nuevo es opcional: un config v1 sigue siendo válido.",
+  "type": "object",
+  "required": [
+    "grupos"
+  ],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "enum": [
+        1,
+        2
+      ]
+    },
+    "titulo": {
+      "type": "string"
+    },
+    "puerto": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 65535
+    },
+    "discos": {
+      "oneOf": [
+        {
+          "const": "auto"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "buscador": {
+      "type": "string"
+    },
+    "saludo": {
+      "type": "string"
+    },
+    "destino": {
+      "$ref": "#/$defs/destino"
+    },
+    "estadoEstilo": {
+      "$ref": "#/$defs/estadoEstilo"
+    },
+    "quicklaunch": {
+      "type": "object",
+      "properties": {
+        "buscarDescripciones": {
+          "type": "boolean"
+        },
+        "abrirUrls": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "tema": {
+      "type": "object",
+      "properties": {
+        "fondo": {
+          "type": "object",
+          "properties": {
+            "imagen": {
+              "type": "string"
+            },
+            "blur": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 40
+            },
+            "brillo": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 200
+            },
+            "saturacion": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 200
+            },
+            "opacidad": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            }
+          },
+          "additionalProperties": false
+        },
+        "encabezado": {
+          "enum": [
+            "subrayado",
+            "caja",
+            "limpio"
+          ]
+        },
+        "tarjeta": {
+          "enum": [
+            "sombra",
+            "filete"
+          ]
+        },
+        "css": {
+          "type": "string"
+        },
+        "js": {
+          "type": "string"
+        },
+        "paleta": {
+          "description": "noche (oscuro, por omisión), claro, o auto (sigue al sistema).",
+          "enum": [
+            "noche",
+            "claro",
+            "auto"
+          ],
+          "default": "noche"
+        }
+      },
+      "additionalProperties": false
+    },
+    "barra": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/widgetBarra"
+      }
+    },
+    "proveedores": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "usuario": {
+            "type": "string"
+          },
+          "clave": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string"
+          },
+          "cabeceras": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "claveDesde": {
+            "type": "string",
+            "description": "Ruta a un config.xml con <ApiKey> (Sonarr, Radarr, Prowlarr)"
+          },
+          "cabeceraClave": {
+            "type": "string",
+            "description": "Cabecera para la clave leída (default X-Api-Key)"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "mcp": {
+      "type": "object",
+      "properties": {
+        "activo": {
+          "type": "boolean"
+        },
+        "escritura": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "grupos": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/grupo"
+      }
+    },
+    "intervalo_s": {
+      "type": "integer",
+      "minimum": 5,
+      "description": "Cada cuántos segundos se revisan los servicios (default 15)"
+    },
+    "sinPlegar": {
+      "type": "boolean"
+    },
+    "gruposPlegados": {
+      "type": "boolean"
+    },
+    "anchoTotal": {
+      "type": "boolean"
+    },
+    "avisos": {
+      "enum": [
+        "marcados",
+        "todos"
+      ],
+      "description": "marcados (default): solo accesos con avisar:true"
+    },
+    "idioma": {
+      "description": "Idioma de la página y de los mensajes: auto (el del navegador), es o en.",
+      "enum": [
+        "auto",
+        "es",
+        "en"
+      ],
+      "default": "auto"
+    }
+  },
+  "$defs": {
+    "destino": {
+      "enum": [
+        "_blank",
+        "_self",
+        "_top"
+      ]
+    },
+    "estadoEstilo": {
+      "enum": [
+        "detalle",
+        "punto",
+        "basico"
+      ]
+    },
+    "grupo": {
+      "type": "object",
+      "required": [
+        "nombre"
+      ],
+      "properties": {
+        "nombre": {
+          "type": "string",
+          "minLength": 1
+        },
+        "nota": {
+          "type": "string"
+        },
+        "pestana": {
+          "type": "string"
+        },
+        "estilo": {
+          "enum": [
+            "columna",
+            "fila"
+          ]
+        },
+        "columnas": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8
+        },
+        "colapsado": {
+          "type": "boolean"
+        },
+        "icono": {
+          "type": "string"
+        },
+        "compacto": {
+          "type": "boolean"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/item"
+          }
+        },
+        "grupos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/grupo"
+          }
+        }
+      }
+    },
+    "item": {
+      "type": "object",
+      "required": [
+        "id",
+        "nombre"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_-]*$"
+        },
+        "nombre": {
+          "type": "string",
+          "minLength": 1
+        },
+        "desc": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "revisar": {
+          "type": "string"
+        },
+        "contiene": {
+          "type": "string"
+        },
+        "vigilar": {
+          "type": "boolean"
+        },
+        "lanzar": {
+          "type": "string"
+        },
+        "archivo": {
+          "type": "string"
+        },
+        "servicio": {
+          "type": "string"
+        },
+        "buscar": {},
+        "abrir_pagina": {},
+        "qbittorrent": {
+          "type": "object"
+        },
+        "icono": {
+          "type": "string"
+        },
+        "destino": {
+          "$ref": "#/$defs/destino"
+        },
+        "estadoEstilo": {
+          "$ref": "#/$defs/estadoEstilo"
+        },
+        "ping": {
+          "type": "string"
+        },
+        "widget": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/widgetServicio"
+            }
+          ]
+        },
+        "avisar": {
+          "type": "boolean",
+          "description": "Notificación de Windows si se cae (y cuando vuelve)"
+        },
+        "detener": {
+          "type": "string",
+          "description": "Programa propio para detenerlo; si no, se usa el servicio o el puerto"
+        },
+        "liberar": {
+          "description": "Qué hace el botón Liberar con este acceso: ollama (descarga modelos) o comfyui (suelta modelos y caché).",
+          "enum": [
+            "ollama",
+            "comfyui"
+          ]
+        }
+      }
+    },
+    "widgetServicio": {
+      "type": "object",
+      "required": [
+        "tipo"
+      ],
+      "properties": {
+        "tipo": {
+          "enum": [
+            "qbittorrent",
+            "api",
+            "iframe"
+          ]
+        },
+        "url": {
+          "type": "string"
+        },
+        "proveedor": {
+          "type": "string"
+        },
+        "campos": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "mapeo": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "resaltar": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "cuando",
+                "nivel"
+              ],
+              "properties": {
+                "cuando": {
+                  "enum": [
+                    "gt",
+                    "gte",
+                    "lt",
+                    "lte",
+                    "eq",
+                    "ne",
+                    "between",
+                    "outside",
+                    "incluye",
+                    "regex"
+                  ]
+                },
+                "valor": {},
+                "nivel": {
+                  "enum": [
+                    "bien",
+                    "aviso",
+                    "peligro"
+                  ]
+                },
+                "negar": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "intervalo_s": {
+          "type": "integer",
+          "minimum": 5
+        },
+        "ocultarErrores": {
+          "type": "boolean"
+        },
+        "cabeceras": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "alto": {
+          "type": "integer",
+          "minimum": 60
+        },
+        "consultas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "url"
+            ],
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "mapeo": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "cabeceras": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "lista": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "etiqueta": {
+                        "type": "string"
+                      },
+                      "de": {
+                        "type": "string"
+                      },
+                      "texto": {
+                        "type": "string"
+                      },
+                      "detalle": {
+                        "type": "string"
+                      },
+                      "formato": {
+                        "enum": [
+                          "bytes",
+                          "fecha"
+                        ]
+                      },
+                      "formatoTexto": {
+                        "enum": [
+                          "bytes",
+                          "fecha"
+                        ]
+                      },
+                      "max": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 20
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "etiqueta": {
+                          "type": "string"
+                        },
+                        "de": {
+                          "type": "string"
+                        },
+                        "texto": {
+                          "type": "string"
+                        },
+                        "detalle": {
+                          "type": "string"
+                        },
+                        "formato": {
+                          "enum": [
+                            "bytes",
+                            "fecha"
+                          ]
+                        },
+                        "formatoTexto": {
+                          "enum": [
+                            "bytes",
+                            "fecha"
+                          ]
+                        },
+                        "max": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 20
+                        }
+                      },
+                      "additionalProperties": false
+                    }
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "lista": {
+          "type": "object",
+          "properties": {
+            "etiqueta": {
+              "type": "string"
+            },
+            "de": {
+              "type": "string"
+            },
+            "texto": {
+              "type": "string"
+            },
+            "detalle": {
+              "type": "string"
+            },
+            "formato": {
+              "enum": [
+                "bytes",
+                "fecha"
+              ]
+            },
+            "formatoTexto": {
+              "enum": [
+                "bytes",
+                "fecha"
+              ]
+            },
+            "max": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 20
+            }
+          },
+          "additionalProperties": false
+        },
+        "formatos": {
+          "type": "object",
+          "additionalProperties": {
+            "enum": [
+              "bytes",
+              "fecha"
+            ]
+          }
+        }
+      }
+    },
+    "widgetBarra": {
+      "type": "object",
+      "required": [
+        "tipo"
+      ],
+      "properties": {
+        "tipo": {
+          "enum": [
+            "reloj",
+            "saludo",
+            "sistema",
+            "clima",
+            "api"
+          ]
+        },
+        "lat": {
+          "type": "number"
+        },
+        "lon": {
+          "type": "number"
+        },
+        "unidades": {
+          "enum": [
+            "metric",
+            "imperial"
+          ]
+        },
+        "cpu": {
+          "type": "boolean"
+        },
+        "ram": {
+          "type": "boolean"
+        },
+        "gpu": {
+          "type": "boolean"
+        },
+        "discos": {
+          "type": "boolean"
+        },
+        "uptime": {
+          "type": "boolean"
+        },
+        "procesos": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 20
+        },
+        "url": {
+          "type": "string"
+        },
+        "proveedor": {
+          "type": "string"
+        },
+        "mapeo": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "lugar": {
+          "type": "string"
+        },
+        "nombre": {
+          "type": "string"
+        },
+        "texto": {
+          "type": "string"
+        },
+        "titulo": {
+          "type": "string"
+        },
+        "intervalo_s": {
+          "type": "integer",
+          "minimum": 5
+        },
+        "cabeceras": {
+          "type": "object"
+        },
+        "campos": {
+          "type": "array"
+        },
+        "resaltar": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

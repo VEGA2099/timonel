@@ -1,0 +1,91 @@
+{
+ "_about": "Timonel 'noche' (default dark) palette",
+ "color": {
+  "bg": "#0b1220",
+  "surface": "#111a2c",
+  "surface-2": "#17223a",
+  "border": "#263552",
+  "text": "#e6edf7",
+  "text-muted": "#93a1b8",
+  "accent": "#d9a441",
+  "accent-hi": "#f0bd5a",
+  "on-accent": "#1a1204",
+  "secondary": "#4fc1b3",
+  "success": "#4cc38a",
+  "danger": "#f07a5a",
+  "idle": "#6f7d96"
+ },
+ "pairs": [
+  [
+   "text",
+   "bg"
+  ],
+  [
+   "text",
+   "surface"
+  ],
+  [
+   "text",
+   "surface-2"
+  ],
+  [
+   "text-muted",
+   "bg"
+  ],
+  [
+   "text-muted",
+   "surface"
+  ],
+  [
+   "text-muted",
+   "surface-2"
+  ],
+  [
+   "on-accent",
+   "accent"
+  ],
+  [
+   "accent-hi",
+   "bg"
+  ],
+  [
+   "accent-hi",
+   "surface"
+  ],
+  [
+   "accent",
+   "surface"
+  ],
+  [
+   "secondary",
+   "bg"
+  ],
+  [
+   "secondary",
+   "surface"
+  ],
+  [
+   "success",
+   "surface"
+  ],
+  [
+   "danger",
+   "surface"
+  ],
+  [
+   "idle",
+   "surface",
+   "ui"
+  ],
+  [
+   "idle",
+   "surface-2",
+   "ui"
+  ],
+  [
+   "accent",
+   "bg",
+   "ui"
+  ]
+ ]
+}

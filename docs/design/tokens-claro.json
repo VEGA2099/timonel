@@ -1,0 +1,91 @@
+{
+ "_about": "Timonel 'claro' (light) palette",
+ "color": {
+  "bg": "#f4f1ea",
+  "surface": "#ffffff",
+  "surface-2": "#f1ede4",
+  "border": "#d6cdbb",
+  "text": "#1b2433",
+  "text-muted": "#5a6474",
+  "accent": "#8a5d0c",
+  "accent-hi": "#74500b",
+  "on-accent": "#ffffff",
+  "secondary": "#1d7468",
+  "success": "#1b7a4b",
+  "danger": "#b3401f",
+  "idle": "#7b8496"
+ },
+ "pairs": [
+  [
+   "text",
+   "bg"
+  ],
+  [
+   "text",
+   "surface"
+  ],
+  [
+   "text",
+   "surface-2"
+  ],
+  [
+   "text-muted",
+   "bg"
+  ],
+  [
+   "text-muted",
+   "surface"
+  ],
+  [
+   "text-muted",
+   "surface-2"
+  ],
+  [
+   "on-accent",
+   "accent"
+  ],
+  [
+   "accent-hi",
+   "bg"
+  ],
+  [
+   "accent-hi",
+   "surface"
+  ],
+  [
+   "accent",
+   "surface"
+  ],
+  [
+   "secondary",
+   "bg"
+  ],
+  [
+   "secondary",
+   "surface"
+  ],
+  [
+   "success",
+   "surface"
+  ],
+  [
+   "danger",
+   "surface"
+  ],
+  [
+   "idle",
+   "surface",
+   "ui"
+  ],
+  [
+   "idle",
+   "surface-2",
+   "ui"
+  ],
+  [
+   "accent",
+   "bg",
+   "ui"
+  ]
+ ]
+}

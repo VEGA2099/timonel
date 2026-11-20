@@ -1,0 +1,689 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/VEGA2099/timonel/blob/main/config.schema.en.json",
+  "title": "Timonel - config.json (English keys)",
+  "description": "Cada campo nuevo es opcional: un config v1 sigue siendo válido.",
+  "type": "object",
+  "required": [
+    "groups"
+  ],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "enum": [
+        1,
+        2
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "port": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 65535
+    },
+    "disks": {
+      "oneOf": [
+        {
+          "const": "auto"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "searchEngine": {
+      "type": "string"
+    },
+    "greeting": {
+      "type": "string"
+    },
+    "target": {
+      "$ref": "#/$defs/destino"
+    },
+    "statusStyle": {
+      "$ref": "#/$defs/estadoEstilo"
+    },
+    "quicklaunch": {
+      "type": "object",
+      "properties": {
+        "searchDescriptions": {
+          "type": "boolean"
+        },
+        "openUrls": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "theme": {
+      "type": "object",
+      "properties": {
+        "background": {
+          "type": "object",
+          "properties": {
+            "image": {
+              "type": "string"
+            },
+            "blur": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 40
+            },
+            "brightness": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 200
+            },
+            "saturation": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 200
+            },
+            "opacity": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            }
+          },
+          "additionalProperties": false
+        },
+        "header": {
+          "enum": [
+            "subrayado",
+            "box",
+            "clean"
+          ]
+        },
+        "card": {
+          "enum": [
+            "sombra",
+            "outline"
+          ]
+        },
+        "css": {
+          "type": "string"
+        },
+        "js": {
+          "type": "string"
+        },
+        "palette": {
+          "description": "noche (oscuro, por omisión), claro, o auto (sigue al sistema).",
+          "enum": [
+            "night",
+            "light",
+            "auto"
+          ],
+          "default": "night"
+        }
+      },
+      "additionalProperties": false
+    },
+    "bar": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/widgetBarra"
+      }
+    },
+    "providers": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "user": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string"
+          },
+          "headers": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "keyFrom": {
+            "type": "string",
+            "description": "Ruta a un config.xml con <ApiKey> (Sonarr, Radarr, Prowlarr)"
+          },
+          "keyHeader": {
+            "type": "string",
+            "description": "Cabecera para la clave leída (default X-Api-Key)"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "mcp": {
+      "type": "object",
+      "properties": {
+        "active": {
+          "type": "boolean"
+        },
+        "write": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "groups": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/grupo"
+      }
+    },
+    "interval_s": {
+      "type": "integer",
+      "minimum": 5,
+      "description": "Cada cuántos segundos se revisan los servicios (default 15)"
+    },
+    "noCollapse": {
+      "type": "boolean"
+    },
+    "groupsCollapsed": {
+      "type": "boolean"
+    },
+    "fullWidth": {
+      "type": "boolean"
+    },
+    "alerts": {
+      "enum": [
+        "marcados",
+        "all"
+      ],
+      "description": "marcados (default): solo accesos con avisar:true"
+    },
+    "language": {
+      "description": "Idioma de la página y de los mensajes: auto (el del navegador), es o en.",
+      "enum": [
+        "auto",
+        "es",
+        "en"
+      ],
+      "default": "auto"
+    }
+  },
+  "$defs": {
+    "destino": {
+      "enum": [
+        "_blank",
+        "_self",
+        "_top"
+      ]
+    },
+    "estadoEstilo": {
+      "enum": [
+        "detalle",
+        "punto",
+        "basico"
+      ]
+    },
+    "grupo": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "note": {
+          "type": "string"
+        },
+        "tab": {
+          "type": "string"
+        },
+        "style": {
+          "enum": [
+            "column",
+            "fila"
+          ]
+        },
+        "columns": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8
+        },
+        "collapsed": {
+          "type": "boolean"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "compact": {
+          "type": "boolean"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/item"
+          }
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/grupo"
+          }
+        }
+      }
+    },
+    "item": {
+      "type": "object",
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_-]*$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "check": {
+          "type": "string"
+        },
+        "contains": {
+          "type": "string"
+        },
+        "watch": {
+          "type": "boolean"
+        },
+        "launch": {
+          "type": "string"
+        },
+        "file": {
+          "type": "string"
+        },
+        "service": {
+          "type": "string"
+        },
+        "find": {},
+        "openPage": {},
+        "qbittorrent": {
+          "type": "object"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "target": {
+          "$ref": "#/$defs/destino"
+        },
+        "statusStyle": {
+          "$ref": "#/$defs/estadoEstilo"
+        },
+        "ping": {
+          "type": "string"
+        },
+        "widget": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/widgetServicio"
+            }
+          ]
+        },
+        "notify": {
+          "type": "boolean",
+          "description": "Notificación de Windows si se cae (y cuando vuelve)"
+        },
+        "stop": {
+          "type": "string",
+          "description": "Programa propio para detenerlo; si no, se usa el servicio o el puerto"
+        },
+        "freeMemory": {
+          "description": "Qué hace el botón Liberar con este acceso: ollama (descarga modelos) o comfyui (suelta modelos y caché).",
+          "enum": [
+            "ollama",
+            "comfyui"
+          ]
+        }
+      }
+    },
+    "widgetServicio": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "qbittorrent",
+            "api",
+            "iframe"
+          ]
+        },
+        "url": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "mapping": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "highlight": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "when",
+                "level"
+              ],
+              "properties": {
+                "when": {
+                  "enum": [
+                    "gt",
+                    "gte",
+                    "lt",
+                    "lte",
+                    "eq",
+                    "ne",
+                    "between",
+                    "outside",
+                    "includes",
+                    "regex"
+                  ]
+                },
+                "value": {},
+                "level": {
+                  "enum": [
+                    "good",
+                    "warning",
+                    "danger"
+                  ]
+                },
+                "negate": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "interval_s": {
+          "type": "integer",
+          "minimum": 5
+        },
+        "hideErrors": {
+          "type": "boolean"
+        },
+        "headers": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 60
+        },
+        "queries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "url"
+            ],
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "mapping": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "headers": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "list": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "label": {
+                        "type": "string"
+                      },
+                      "from": {
+                        "type": "string"
+                      },
+                      "text": {
+                        "type": "string"
+                      },
+                      "detail": {
+                        "type": "string"
+                      },
+                      "format": {
+                        "enum": [
+                          "bytes",
+                          "date"
+                        ]
+                      },
+                      "textFormat": {
+                        "enum": [
+                          "bytes",
+                          "date"
+                        ]
+                      },
+                      "max": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 20
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "label": {
+                          "type": "string"
+                        },
+                        "from": {
+                          "type": "string"
+                        },
+                        "text": {
+                          "type": "string"
+                        },
+                        "detail": {
+                          "type": "string"
+                        },
+                        "format": {
+                          "enum": [
+                            "bytes",
+                            "date"
+                          ]
+                        },
+                        "textFormat": {
+                          "enum": [
+                            "bytes",
+                            "date"
+                          ]
+                        },
+                        "max": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 20
+                        }
+                      },
+                      "additionalProperties": false
+                    }
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "list": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "from": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            },
+            "detail": {
+              "type": "string"
+            },
+            "format": {
+              "enum": [
+                "bytes",
+                "date"
+              ]
+            },
+            "textFormat": {
+              "enum": [
+                "bytes",
+                "date"
+              ]
+            },
+            "max": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 20
+            }
+          },
+          "additionalProperties": false
+        },
+        "formats": {
+          "type": "object",
+          "additionalProperties": {
+            "enum": [
+              "bytes",
+              "fecha"
+            ]
+          }
+        }
+      }
+    },
+    "widgetBarra": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "clock",
+            "greeting",
+            "system",
+            "weather",
+            "api"
+          ]
+        },
+        "lat": {
+          "type": "number"
+        },
+        "lon": {
+          "type": "number"
+        },
+        "units": {
+          "enum": [
+            "metric",
+            "imperial"
+          ]
+        },
+        "cpu": {
+          "type": "boolean"
+        },
+        "ram": {
+          "type": "boolean"
+        },
+        "gpu": {
+          "type": "boolean"
+        },
+        "disks": {
+          "type": "boolean"
+        },
+        "uptime": {
+          "type": "boolean"
+        },
+        "processes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 20
+        },
+        "url": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "string"
+        },
+        "mapping": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "place": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "interval_s": {
+          "type": "integer",
+          "minimum": 5
+        },
+        "headers": {
+          "type": "object"
+        },
+        "fields": {
+          "type": "array"
+        },
+        "highlight": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}
